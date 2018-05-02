@@ -1,6 +1,7 @@
 def stopServers() {
-    Servers.split("\\r?\\n").each { server ->
-        sh "az vm deallocate -g ${ResourceGroup} -n ${server}"
+    Servers.split("\\r?\\n").each { line ->
+        (server, resource_group) = line.split(",")
+        sh "az vm deallocate -g ${resource_group} -n ${server}"
     }
 }
 
